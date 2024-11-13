@@ -1,15 +1,36 @@
 const logger=require('../config/logger')
+const Conversation=require('../model/conversation.model')
+const Message=require('../model/message.model')
 
 
-const sendMessage=(req,res)=>{
+const sendMessage=async (req,res)=>{
   try{
     const {message}=req.body
     const {id}=req.params
-    const senderId=req.// get it from middleware
+    const senderId=req.user._id// get it from middleware
+    const conversation=await Conversation.findOne({
+        participants:{$all:[senderId,recieverId]},
+    })
+    //if new conversation
+    if(!conversation){//check whether they have previous conversation
+        conversation=await Conversation.create({
+            participants:[senderId,receiverId],
+        })
+    }
+    //create messsage
+    const newMessage=await Message.create({
+        senderId,
+        recieverId,
+        message
+    })
+    if(newMessage){
+        await conversation.messages.push(newMessage._id)
+    }
+    logger.info("message send successful")
+    res.status(200).json({
+        message:newMessage,
 
-    res.json({
-        message:"message send",
-        id:id,
+        
     })
 
   }catch(error){

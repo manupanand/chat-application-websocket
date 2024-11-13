@@ -13,7 +13,11 @@ const generateTokenCookie=(userId,res)=>{
         secure: process.env.NODE_ENV != "development",// either true or false can make it dynamic if not in development to true
     })
 }
+const verifyToken=(token)=>{
+    const decoded=jsonwebtoken.verify(token,secretKey)
+    return decoded
+}
 
-module.export=generateTokenCookie
+module.export={generateTokenCookie,verifyToken}
 
 
