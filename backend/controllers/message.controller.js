@@ -8,13 +8,13 @@ const sendMessage=async (req,res)=>{
     const {message}=req.body
     const {id}=req.params
     const senderId=req.user._id// get it from middleware
-    const conversation=await Conversation.findOne({
-        participants:{$all:[senderId,recieverId]},
+    let conversation=await Conversation.findOne({
+        participants:{$all:[senderId, id]},
     })
     //if new conversation
     if(!conversation){//check whether they have previous conversation
         conversation=await Conversation.create({
-            participants:[senderId,receiverId],
+            participants:[senderId,id],
         })
     }
     //create messsage
@@ -23,10 +23,11 @@ const sendMessage=async (req,res)=>{
         recieverId,
         message
     })
+    await newMessage.save()
     if(newMessage){
         await conversation.messages.push(newMessage._id)
     }
-    await newMessage.save()
+    
     await conversation.save()
     logger.info("message send successful")
     res.status(200).json({
@@ -45,4 +46,4 @@ const sendMessage=async (req,res)=>{
 }
 
 
-module.exports=sendMessage
+module.exports={sendMessage}

@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs/dist/bcrypt")
+
 const logger=require("../config/logger")
 const User=require('../model/user.model')
 const{encrypt,decrypt}=require('../config/bcrypt')
@@ -8,9 +8,13 @@ const loginUser=async(req,res)=>{
    try{
         const {username,password}=req.body
         const user=await User.findOne({username})
+        if (!user) {
+            return res.status(400).json({ error: "Invalid username or password" });
+        }
+
         try{//validate password
-            const ispasswordCorrect= await decrypt(password,user?.password || "")//if password user doesnt exist null should not throw error
-            if(!user ||!ispasswordCorrect){
+            const isPasswordCorrect= await decrypt(password,user.password || "")//if password user doesnt exist null should not throw error
+            if(!user || !isPasswordCorrect){
                 return res.status(400).json({error: "Invalid username or password"})
             }
             generateToken(user._id,res)
@@ -52,14 +56,14 @@ const logoutUser= (req,res)=>{
 const signUpUser= async (req,res)=>{
     const {firstName,lastName,password,confirmPassword,gender}=req.body
     try{
-        if(password!=conformPassword){
+        if(password !== confirmPassword){
             logger.error("Passwords dont match ")
             return res.status(400).json({
                 error:"Passwords don't match"
             })
         }
-        const user= await User.findOne({username})
-        if(user){
+        const existingUser= await User.findOne({username})
+        if(existingUser){
             return res.status(400).json({
                 error:"Username already exists "
             })

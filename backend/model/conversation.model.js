@@ -2,12 +2,15 @@ const mongoose=require('mongoose')
 
 const conversationSchema= new mongoose.Schema({
             participants:[
-               { type:new mongoose.Schema.Types.ObjectId(),
-                ref:"User",},
+               { type: mongoose.Schema.Types.ObjectId,
+                ref:"User",
+                default:[]
+            },
+                
             ],
             messages:[
                 {
-                    type:new mongoose.Schema.Types.ObjectId(),
+                    type: mongoose.Schema.Types.ObjectId,
                     ref:"Message",
                 default:[]
             },

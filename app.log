@@ -27,3 +27,5 @@
 {"level":"\u001b[32minfo\u001b[39m","message":"new datbase success","timestamp":"2024-11-13T10:20:59.305Z"}
 {"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/\",\"status\":\"200\",\"responseTime\":\"182.671\"}","timestamp":"2024-11-13T10:20:59.313Z"}
 {"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/favicon.ico\",\"status\":\"404\",\"responseTime\":\"2.722\"}","timestamp":"2024-11-13T10:20:59.439Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Server started succesfully on port :5000","timestamp":"2024-11-14T17:18:50.576Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"MongoDb connection successful","timestamp":"2024-11-14T17:18:51.239Z"}
