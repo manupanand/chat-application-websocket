@@ -23,6 +23,12 @@ app.use(express.json())//to parse req.body middleware
 //routes
 app.use('/api/auth',mainRouter)
 app.use('/api/message',messageRouter)
+app.get('/',(req,res)=>{
+    res.json({
+        message:"got main route test",
+        malay:"തിരഞ്ഞെടുത്ത ഉദ്ധരണി "
+    })
+})
 
 
 app.listen(5000,()=>{
