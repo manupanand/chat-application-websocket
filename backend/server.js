@@ -31,7 +31,7 @@ app.get('/',(req,res)=>{
 })
 
 
-app.listen(5000,()=>{
+app.listen(2500,()=>{
     try{logger.info("Server started succesfully on port :5000")}catch(error){
         logger.error("Error in starting server: ",error)
     }
