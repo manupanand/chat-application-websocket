@@ -1,5 +1,39 @@
 version: '3.8'
+
 services:
   frontend:
+    build:
+      context: ./frontend
+    image: frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
   backend:
+    build:
+      context: ./backend
+    image: backend
+    container_name: backend
+    ports:
+      - "2500:2500"
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/mydatabase
+    depends_on:
+      - database
+
   database:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
+
+# networks:
+#   default:
+#     name: chat-network

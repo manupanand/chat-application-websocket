@@ -1,4 +1,8 @@
 app.log
 /fontend/node_modules
+/backend/node_modules
 nginx.conf
+/backend/.env
+/frontend/.env
+
 
